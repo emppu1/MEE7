@@ -1,1 +1,20 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nettiauto</title>
+  </head>
+  <body>
+    <h1>Nettimoto</h1>
+    <div id="ip">Ladataan...</div>
+    <script>
+      fetch('/api/ip')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('ip').textContent = 'IP-osoitteesi: ' + data.ip;
+        })
+        .catch(() => {
+          document.getElementById('ip').textContent = 'IP:n haku epäonnistui.';
+        });
+    </script>
+  </body>
+</html>
