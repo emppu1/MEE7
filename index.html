@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MEE7
+    </title>
+    <style>
+      body {
+        transition: background 2.0s;
+        background: #212121;
+        color: #fff;
+        font-family: Arial, sans-serif;
+      }
+      #nav {
+        margin-bottom: 24px;
+        text-align: left;
+      }
+      #main-btn { background: #323f88 !important; color: #fff !important; }
+      #proxy-btn { background: #323f88 !important; color: #fff !important; }
+      #proxy-search-nav-btn { background: #323f88 !important; color: #fff !important; }
+      #stress-btn { background: #ff0000 !important; color: #fff !important; }
+      #connect-proxy { background: #ff0000 !important; color: #fff !important; }
+      #save-memo { background: #ff0000 !important; color: #fff !important; }
+      #proxy-search-btn { background: #ff0000 !important; color: #fff !important; }
+      #clear-system { background: #ff0000 !important; color: #fff !important; }
+      #clear-user { background: #ff0000 !important; color: #fff !important; }
+      #clear-proxy-log { background: #ff0000 !important; color: #fff !important; }
+      #stop-proxy-search { background: #ff0000 !important; color: #fff !important; }
+      .bg-btn { margin-bottom: 8px; border-radius: 6px; padding: 8px 16px; font-weight: bold; border: none; cursor: pointer; }
+      #bg-black { background: #535353 !important; color: #fff !important; }
+      #bg-blue { background: #1976d2 !important; color: #fff !important; }
+      #bg-turquoise { background: #00bcd4 !important; color: #fff !important; }
+      #bg-white { background: #fff !important; color: #212121 !important; }
+      #nav button { padding: 8px 20px; }
+      #main-page { display: block; }
+      #status { color: #00ff00; font-weight: bold; margin-bottom: 16px; }
+      #app-log, #data-log {
+        background: #111;
+        color: #fff;
+        min-height: 40px;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 12px;
+        font-size: 1em;
+        border: 1px solid #222;
+      }
+      #stress-test {
+        margin-bottom: 16px;
+        text-align: left;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      #stress-fields {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+      #stress-ip, #stress-count, #stress-interval, #stress-duration {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-right: 8px;
+      }
+      #stress-ip { width: 180px; }
+      #stress-count, #stress-interval, #stress-duration { width: 80px; }
+      #proxy-connect-panel {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      #proxy-ip {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        width: 200px;
+      }
+      #bg-buttons {
+        margin-top: 32px;
+        text-align: right;
+      }
+      #proxy-page {
+        display: none;
+        background: #111;
+        color: #fff;
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 16px;
+        border: 1px solid #222;
+      }
+      #memo {
+        background: #222;
+        color: #fff;
+        border-radius: 8px;
+        padding: 16px;
+        min-height: 120px;
+        width: 100%;
+        border: 1px solid #333;
+        font-size: 1em;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+      #proxy-search-page {
+        display: none;
+        background: #111;
+        color: #fff;
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 16px;
+        border: 1px solid #222;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      #proxy-log {
+        background: #222;
+        color: #fff;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 0.95em;
+      }
+      #proxy-working-box {
+        background: #222;
+        color: #0f0;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        max-height: 220px;
+        overflow-y: auto;
+      }
+      #proxy-table-box {
+        background: #181818;
+        border-radius: 8px;
+        padding: 8px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        max-height: 320px;
+        overflow-y: auto;
+      }
+      #proxy-list-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 16px;
+      }
+      #proxy-list-table th, #proxy-list-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+      }
+      #proxy-list-table th { background: #222; }
+      #proxy-list-table td { background: #181818; }
+      .proxy-connect-btn {
+        background: #1976d2 !important;
+        color: #fff !important;
+        border-radius: 6px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 4px 12px;
+      }
+      .proxy-status-ok { color: #0f0; font-weight: bold; }
+      .proxy-status-fail { color: #f00; font-weight: bold; }
+      #proxy-amount-input {
+        width: 80px;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin-right: 8px;
+        font-size: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav">
+      <button id="main-btn">Panel</button>
+      <button id="proxy-btn">Other's</button>
+      <button id="proxy-search-nav-btn">Free Proxies</button>
+      <!-- Värinapit vain panelsivun alareunassa -->
+    </div>
+    <div id="main-page">
+      <h1> ⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘⫘
+
+      </h1>
+      <button id="start">Start bot</button>
+      <button id="restart">Restart bot</button>
+      <button id="stop">Shut bot</button>
+      <button id="clear-system">Clear system log</button>
+      <button id="clear-user">Clear user log</button>
+      <p id="status">off</p>
+      <div id="app-log"></div>
+      <div id="data-log"></div>
+      <div id="stress-test">
+        <div id="stress-fields">
+          <input type="text" id="stress-ip" placeholder="set IP or domain">
+          <input type="number" id="stress-count" min="1" value="4" placeholder="Määrä">
+          <input type="number" id="stress-interval" min="10" value="500" placeholder="Väli (ms)">
+          <input type="number" id="stress-duration" min="1" value="2000" placeholder="Kesto (ms)">
+          <button id="stress-btn">Send</button>
+        </div>
+        <div id="proxy-connect-panel">
+          <label for="proxy-ip" style="color:#fff;"></label>
+          <input type="text" id="proxy-ip" placeholder="Proxy (ip:port)">
+          <button id="connect-proxy">Connect proxyserver</button>
+        </div>
+      </div>
+      <!-- Värinapit vain panelsivun alareunassa oikealla -->
+      <div id="bg-buttons">
+        <button class="bg-btn" id="bg-black"></button>
+        <button class="bg-btn" id="bg-blue"></button>
+        <button class="bg-btn" id="bg-turquoise"></button>
+        <button class="bg-btn" id="bg-white"></button>
+      </div>
+    </div>
+    <div id="proxy-page">
+      <h2>notepad</h2>
+      <textarea id="memo" placeholder="Note's"></textarea>
+      <button id="save-memo">Save</button>
+    </div>
+    <div id="proxy-search-page">
+      <h2>Free Proxies</h2>
+      <input type="number" id="proxy-amount-input" min="1" max="500" value="50" placeholder="Määrä">
+      <button id="proxy-search-btn">Update List</button>
+      <button id="clear-proxy-log">Clear log</button>
+      <button id="stop-proxy-search">Stop search</button>
+      <div id="proxy-log"></div>
+      <div id="proxy-working-box"><b>Working proxies:</b><br></div>
+      <div id="proxy-table-box">
+        <table id="proxy-list-table">
+          <thead>
+            <tr>
+              <th>IP</th>
+              <th>Port</th>
+              <th>Status</th>
+              <th>Connect</th>
+            </tr>
+          </thead>
+          <tbody id="proxy-list-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="render.js"></script>
+    <script>
+      // Sivun vaihto
+      const mainBtn = document.getElementById('main-btn');
+      const proxyBtn = document.getElementById('proxy-btn');
+      const proxySearchNavBtn = document.getElementById('proxy-search-nav-btn');
+      const mainPage = document.getElementById('main-page');
+      const proxyPage = document.getElementById('proxy-page');
+      const proxySearchPage = document.getElementById('proxy-search-page');
+      mainBtn.onclick = () => {
+        mainPage.style.display = 'block';
+        proxyPage.style.display = 'none';
+        proxySearchPage.style.display = 'none';
+      };
+      proxyBtn.onclick = () => {
+        mainPage.style.display = 'none';
+        proxyPage.style.display = 'block';
+        proxySearchPage.style.display = 'none';
+      };
+      proxySearchNavBtn.onclick = () => {
+        mainPage.style.display = 'none';
+        proxyPage.style.display = 'none';
+        proxySearchPage.style.display = 'block';
+      };
+      // Taustavärin vaihto
+      document.getElementById('bg-black').onclick = () => { document.body.style.background = '#212121'; };
+      document.getElementById('bg-blue').onclick = () => { document.body.style.background = '#1976d2'; };
+      document.getElementById('bg-turquoise').onclick = () => { document.body.style.background = '#00bcd4'; };
+      document.getElementById('bg-white').onclick = () => { document.body.style.background = '#fff'; };
+    </script>
+  </body>
+</html>
